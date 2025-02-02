@@ -95,11 +95,30 @@ class _TelaJogoDaVelhaState extends State<_TelaJogoDaVelha> {
         if (vencedor != '') {
           jogoAcabou = true;
           //mostrarResultado(vencedor);
-        }else{
-			jogadorAtual = jogadorAtual == 'X' ? 'O' : 'X';
-		}
+        } else {
+          jogadorAtual = jogadorAtual == 'X' ? 'O' : 'X';
+        }
       });
     }
+  }
+
+  //Mostrar o resultado do jogo
+  void mostrarResultado(String vencedor) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text(vencedor == 'Empate' ? 'Empate!' : 'Vencedor!'),
+              content: Text(vencedor == 'Empate'
+                  ? 'O jogo terminou em empate.'
+                  : 'O vencedor $vencedor venceu!'),
+              actions: [
+                TextButton(
+                    onPressed: () =>
+                        {Navigator.of(context).pop(), reiniciarJogo()},
+                    child: Text('Jogar Novamente'))
+              ]);
+        });
   }
 
   @override
