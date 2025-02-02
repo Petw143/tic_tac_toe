@@ -9,7 +9,7 @@ class JogoDaVelhaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Jogo da Velha',
-      theme: ThemeData(primarySwatch: Colors.green),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: _TelaJogoDaVelha(),
     );
   }
@@ -127,33 +127,42 @@ class _TelaJogoDaVelhaState extends State<_TelaJogoDaVelha> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Jogo da Velha"),
+			title: Text("Jogo da Velha", style: TextStyle(color: Colors.white, fontFamily: 'Roboto')),
+			centerTitle:  true,
+			backgroundColor: Colors.blue[900],
         ),
         body: Center(
-            child: Column(
-				mainAxisAlignment: MainAxisAlignment.center, 
-				children: [
-          //Tabuleiro 3x3
-          for (int i = 0; i < 3; i++)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int j = 0; j < 3; j++)
-                  GestureDetector(
-                      onTap: () => jogar(i, j),
-                      child: Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black)),
-                          child: Center(
-                              child: Text(tabuleiro[i][j],
-                                  style: TextStyle(fontSize: 40)))))
-              ],
+            child: Container(
+                color: Colors.grey[300], // Define a cor do body para cinza claro
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        //Tabuleiro 3x3
+                        for (int i = 0; i < 3; i++)
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                    for (int j = 0; j < 3; j++)
+                                        GestureDetector(
+                                            onTap: () => jogar(i, j),
+                                            child: Container(
+                                                width: 80,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: Colors.black),
+													color: Colors.white),
+                                                child: Center(
+                                                    child: Text(tabuleiro[i][j],
+                                                        style: TextStyle(fontSize: 40)))))
+                                ],
+                            ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                            onPressed: reiniciarJogo, child: Text('Reiniciar Jogo', style: TextStyle(color: Colors.white)),)
+                    ],
+                ),
             ),
-          SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: reiniciarJogo, child: Text('Reiniciar Jogo'))
-        ])));
+        ),
+    );
   }
 }
