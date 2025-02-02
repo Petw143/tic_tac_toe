@@ -50,12 +50,12 @@ class _TelaJogoDaVelhaState extends State<_TelaJogoDaVelha> {
       }
     }
 
-    //Verifica as linhas verticais
-    for (int i = 0; i < 3; i++) {
-      if (tabuleiro[0][i] != '' &&
-          tabuleiro[1][i] == tabuleiro[1][i] &&
-          tabuleiro[1][i] == tabuleiro[2][i]) {
-        return tabuleiro[0][i];
+    //Verifica as colunas
+    for (int j = 0; j < 3; j++) {
+      if (tabuleiro[0][j] != '' &&
+          tabuleiro[0][j] == tabuleiro[1][j] &&
+          tabuleiro[1][j] == tabuleiro[2][j]) {
+        return tabuleiro[0][j];
       }
     }
 
@@ -94,7 +94,7 @@ class _TelaJogoDaVelhaState extends State<_TelaJogoDaVelha> {
         String vencedor = verificarVencedor();
         if (vencedor != '') {
           jogoAcabou = true;
-          //mostrarResultado(vencedor);
+          mostrarResultado(vencedor);
         } else {
           jogadorAtual = jogadorAtual == 'X' ? 'O' : 'X';
         }
@@ -108,14 +108,16 @@ class _TelaJogoDaVelhaState extends State<_TelaJogoDaVelha> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text(vencedor == 'Empate' ? 'Empate!' : 'Vencedor!'),
+              title: Text(vencedor == 'Empate' ? 'Empate!' : 'Vitória!'),
               content: Text(vencedor == 'Empate'
                   ? 'O jogo terminou em empate.'
                   : 'O vencedor $vencedor venceu!'),
               actions: [
                 TextButton(
-                    onPressed: () =>
-                        {Navigator.of(context).pop(), reiniciarJogo()},
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      reiniciarJogo();
+                    },
                     child: Text('Jogar Novamente'))
               ]);
         });
@@ -123,6 +125,35 @@ class _TelaJogoDaVelhaState extends State<_TelaJogoDaVelha> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Jogo da Velha"),
+        ),
+        body: Center(
+            child: Column(
+				mainAxisAlignment: MainAxisAlignment.center, 
+				children: [
+          //Tabuleiro 3x3
+          for (int i = 0; i < 3; i++)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int j = 0; j < 3; j++)
+                  GestureDetector(
+                      onTap: () => jogar(i, j),
+                      child: Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)),
+                          child: Center(
+                              child: Text(tabuleiro[i][j],
+                                  style: TextStyle(fontSize: 40)))))
+              ],
+            ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: reiniciarJogo, child: Text('Reiniciar Jogo'))
+        ])));
   }
 }
