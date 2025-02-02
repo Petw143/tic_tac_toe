@@ -158,7 +158,7 @@ class _TelaJogoDaVelhaState extends State<_TelaJogoDaVelha> {
                             ),
                         SizedBox(height: 20),
                         ElevatedButton(
-                            onPressed: reiniciarJogo, child: Text('Reiniciar Jogo', style: TextStyle(color: Colors.white)),)
+                            onPressed: reiniciarJogo, child: Text('Reiniciar Jogo', style: TextStyle(color: Colors.black)),)
                     ],
                 ),
             ),
